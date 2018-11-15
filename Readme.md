@@ -1,3 +1,8 @@
+<!-- default file list -->
+*Files to look at*:
+
+* [Form1.cs](./CS/SuppliersExample/Form1.cs) (VB: [Form1.vb](./VB/SuppliersExample/Form1.vb))
+<!-- default file list end -->
 # How to bind a spreadsheet to an MS SQL Server database 
 
 
