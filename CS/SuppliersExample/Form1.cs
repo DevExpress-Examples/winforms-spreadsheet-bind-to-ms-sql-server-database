@@ -69,7 +69,7 @@ namespace SuppliersExample
         }
 
         void HideDataEntryForm(Worksheet sheet) {
-            Range range = sheet.Range.Parse("C4,C6,C8,E4,E6,E8,G4,G6");
+            CellRange range = sheet.Range.Parse("C4,C6,C8,E4,E6,E8,G4,G6");
             range.ClearContents();
             sheet.Rows.Hide(2, 9);
         }
@@ -87,8 +87,8 @@ namespace SuppliersExample
 
         private void spreadsheetControl1_RowsRemoving(object sender, RowsChangingEventArgs e) {
             Worksheet sheet = spreadsheetControl1.ActiveWorksheet;
-            Range rowRange = sheet.Range.FromLTRB(0, e.StartIndex, 16383, e.StartIndex + e.Count - 1);
-            Range boundRange = sheet.DataBindings[0].Range;
+            CellRange rowRange = sheet.Range.FromLTRB(0, e.StartIndex, 16383, e.StartIndex + e.Count - 1);
+            CellRange boundRange = sheet.DataBindings[0].Range;
             // If the rows to be removed belong to the data-bound range,
             // display a dialog requesting the user to confirm the deletion of records. 
             if (boundRange.IsIntersecting(rowRange)) {
@@ -120,8 +120,8 @@ namespace SuppliersExample
         private void buttonRemoveRecord_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e) {
             CloseInplaceEditor();
             Worksheet sheet = spreadsheetControl1.ActiveWorksheet;
-            Range selectedRange = spreadsheetControl1.Selection;
-            Range boundRange = sheet.DataBindings[0].Range;
+            CellRange selectedRange = spreadsheetControl1.Selection;
+            CellRange boundRange = sheet.DataBindings[0].Range;
             // Verify that the selected cell range belongs to the data-bound range.
             if (!boundRange.IsIntersecting(selectedRange) || selectedRange.TopRowIndex < boundRange.TopRowIndex) {
                 MessageBox.Show("Select a record first!", "Remove Record", MessageBoxButtons.OK, MessageBoxIcon.Error);

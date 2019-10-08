@@ -2,7 +2,7 @@
 Imports System
 Imports System.Windows.Forms
 Imports DevExpress.Spreadsheet
-Imports SuppliersExample.NWindDataSetTableAdapters
+Imports NWindDataSetTableAdapters
 ' ...
 #End Region ' #Namespaces
 
@@ -65,7 +65,7 @@ Namespace SuppliersExample
         End Sub
 
         Private Sub HideDataEntryForm(ByVal sheet As Worksheet)
-            Dim range As Range = sheet.Range.Parse("C4,C6,C8,E4,E6,E8,G4,G6")
+            Dim range As CellRange = sheet.Range.Parse("C4,C6,C8,E4,E6,E8,G4,G6")
             range.ClearContents()
             sheet.Rows.Hide(2, 9)
         End Sub
@@ -82,8 +82,8 @@ Namespace SuppliersExample
 
         Private Sub spreadsheetControl1_RowsRemoving(ByVal sender As Object, ByVal e As RowsChangingEventArgs) Handles spreadsheetControl1.RowsRemoving
             Dim sheet As Worksheet = spreadsheetControl1.ActiveWorksheet
-            Dim rowRange As Range = sheet.Range.FromLTRB(0, e.StartIndex, 16383, e.StartIndex + e.Count - 1)
-            Dim boundRange As Range = sheet.DataBindings(0).Range
+            Dim rowRange As CellRange = sheet.Range.FromLTRB(0, e.StartIndex, 16383, e.StartIndex + e.Count - 1)
+            Dim boundRange As CellRange = sheet.DataBindings(0).Range
             ' If the rows to be removed belong to the data-bound range,
             ' display a dialog requesting the user to confirm the deletion of records. 
             If boundRange.IsIntersecting(rowRange) Then
@@ -115,8 +115,8 @@ Namespace SuppliersExample
         Private Sub buttonRemoveRecord_ItemClick(ByVal sender As Object, ByVal e As DevExpress.XtraBars.ItemClickEventArgs) Handles buttonRemoveRecord.ItemClick
             CloseInplaceEditor()
             Dim sheet As Worksheet = spreadsheetControl1.ActiveWorksheet
-            Dim selectedRange As Range = spreadsheetControl1.Selection
-            Dim boundRange As Range = sheet.DataBindings(0).Range
+            Dim selectedRange As CellRange = spreadsheetControl1.Selection
+            Dim boundRange As CellRange = sheet.DataBindings(0).Range
             ' Verify that the selected cell range belongs to the data-bound range.
             If (Not boundRange.IsIntersecting(selectedRange)) OrElse selectedRange.TopRowIndex < boundRange.TopRowIndex Then
                 MessageBox.Show("Select a record first!", "Remove Record", MessageBoxButtons.OK, MessageBoxIcon.Error)
